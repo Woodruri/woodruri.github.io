@@ -19,3 +19,7 @@ It's a static site (plain HTML, CSS and JavaScript, no build step) served by Git
 python -m http.server 8000
 # then open http://localhost:8000
 ```
+
+## Deploying changes
+
+GitHub Pages caches files for about 10 minutes. After changing CSS or JS, bump the `?v=` number on its `<link>`/`<script>` tag in `index.html` so returning visitors get the new version.
