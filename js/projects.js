@@ -61,13 +61,13 @@ const projectsArray = [
         githubLink: "https://github.com/Woodruri/PhysicsGo",
     },
     {
-        title: "Multithreaded Prime Sieve",
+        title: "Multithreaded Sieve of Eratosthenes",
         year: 2023,
         status: "Complete",
         category: "systems",
         featured: true,
         description:
-            "Multithreaded Sieve of Eratosthenes in C using POSIX threads. Distributes work across a configurable number of threads, synchronized through a mutex-guarded bit array, to find every prime up to a chosen bound.",
+            "Parallel prime finder in C using POSIX threads. Distributes work across a configurable number of threads, synchronized through a mutex-guarded bit array, to find every prime up to a chosen bound.",
         tags: ["C", "pthreads", "Concurrency"],
         githubLink: "https://github.com/Woodruri/Multi-threaded-primes-sieve",
     },
@@ -93,16 +93,6 @@ const projectsArray = [
         description: "Exploration of modern GPU programming in Rust, rendering a sphere with wgpu and winit.",
         tags: ["Rust", "wgpu", "GPU"],
         githubLink: "https://github.com/Woodruri/graphics_learning",
-    },
-    {
-        title: "Mini Mages",
-        year: 2026,
-        status: "In progress",
-        category: "graphics",
-        featured: false,
-        description: "Game prototype in Godot and GDScript, in early development.",
-        tags: ["Godot", "GDScript"],
-        githubLink: "https://github.com/Woodruri/mini-mages",
     },
     {
         title: "Animal Shucks",
