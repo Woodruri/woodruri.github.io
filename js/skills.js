@@ -1,86 +1,48 @@
-// skills array to reduce redundant code
+// ========================================
+// Skills
+// Edit this array to update the Skills section.
+// ========================================
+
 const skillsArray = [
     {
-        id:1,
-        title: "Cybersecurity",
-        skills: [
-            "Pentesting",
-            "Malware Reverse Engineering",
-            "Web and Cloud Security"
-        ]
+        title: "Languages",
+        skills: ["Rust", "C", "C++", "Go", "Python", "JavaScript", "Bash"],
     },
     {
-        id:2,
-        title: "Systems Programming",
-        skills: [
-            "C, C++, Rust Proficiency",
-            "RISC-V",
-            "Operating Systems Experience"
-        ]
+        title: "Systems & Low-Level",
+        skills: ["Linux kernel modules", "CPU emulation", "RISC-V", "Multithreading", "Operating systems", "Networking protocols"],
     },
     {
-        id:3,
-        title: "Web Development",
-        skills: [
-            "HTML",
-            "CSS/SCSS",
-            "Javascript"
-        ]
+        title: "Security",
+        skills: ["Penetration testing", "Malware reverse engineering", "Web & cloud security", "Kali Linux"],
     },
     {
-        id:4,
-        title: "Scripting",
-        skills: [
-            "Bash",
-            "Python",
-        ]
+        title: "Graphics & Games",
+        skills: ["wgpu", "raylib", "Bevy", "Godot", "SDL2"],
     },
     {
-        id:5,
-        title: "Linux",
-        skills: [
-            "Ubuntu",
-            "Kali",
-            "Bare Metal Server"
-        ]
+        title: "Web",
+        skills: ["HTML", "CSS / SCSS", "JavaScript", "REST APIs"],
     },
-]
+    {
+        title: "Tools & Platforms",
+        skills: ["Git", "Linux (Ubuntu, Kali)", "Bare-metal servers", "Make", "Cargo"],
+    },
+];
 
-// Pass in a skillsArray object and create HTML
-function createSkillCard(skill) {
+function createSkillCard(group) {
     return `
-        <div class="skills-card">
-            <h3>${skill.title}</h3>
-            <ul class="skill-list">
-                ${skill.skills.map(item => `<li>${item}</li>`).join('')}
+        <div class="skill-card">
+            <h3 class="skill-title mono">${group.title}</h3>
+            <ul class="skill-chips">
+                ${group.skills.map((s) => `<li>${s}</li>`).join("")}
             </ul>
-        </div>
-    `;
+        </div>`;
 }
 
-// Function to render all skills to the page
 function renderSkills() {
-    const skillsGrid = document.querySelector('.skills-grid');
-    
-    if (skillsGrid) {
-        // Clear existing content (removes the placeholder cards)
-        skillsGrid.innerHTML = '';
-        
-        // Generate HTML for all skills
-        const skillsHTML = skillsArray.map(skill => createSkillCard(skill)).join('');
-        
-        // Insert into the page
-        skillsGrid.innerHTML = skillsHTML;
-        
-        console.log(`Loaded ${skillsArray.length} skill categories`);
-    } else {
-        console.error('Could not find .skills-grid element');
-    }
+    const grid = document.getElementById("skillsGrid");
+    if (grid) grid.innerHTML = skillsArray.map(createSkillCard).join("");
 }
 
-// Auto-run when DOM is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderSkills);
-} else {
-    renderSkills();
-}
+renderSkills();

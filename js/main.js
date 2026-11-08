@@ -1,153 +1,100 @@
 // ========================================
-// Main JavaScript - Portfolio Interactions
+// Main: navigation, theme and scroll effects
 // ========================================
 
-(function() {
-    'use strict';
+(function () {
+    "use strict";
 
-    // ========================================
-    // Smooth Scrolling for Navigation Links
-    // ========================================
-    
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            
-            // Don't do anything if it's just "#"
-            if (targetId === '#') return;
-            
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const headerOffset = 80; // Account for fixed header
-                const elementPosition = targetSection.offsetTop;
-                const offsetPosition = elementPosition - headerOffset;
+    const root = document.documentElement;
+    const navbar = document.getElementById("navbar");
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+    const themeToggle = document.getElementById("themeToggle");
 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
+    // ---------- Footer year ----------
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // ---------- Theme toggle ----------
+    function currentTheme() {
+        const set = root.getAttribute("data-theme");
+        if (set) return set;
+        return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    }
+
+    themeToggle?.addEventListener("click", () => {
+        const next = currentTheme() === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch (e) { /* storage unavailable */ }
     });
 
-    // ========================================
-    // Navbar Scroll Effect
-    // ========================================
-    
-    const navbar = document.querySelector('.navbar');
-    
-    function handleNavbarScroll() {
-        const currentScrollY = window.scrollY;
-        
-        if (currentScrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    }
-    
-    window.addEventListener('scroll', handleNavbarScroll);
-
-    // ========================================
-    // Active Navigation Link Highlighting
-    // ========================================
-    
-    function setActiveNavLink() {
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            
-            if (window.scrollY >= sectionTop - 100) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    }
-    
-    window.addEventListener('scroll', setActiveNavLink);
-
-    // ========================================
-    // Fade-in Animation on Scroll
-    // ========================================
-    
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements for animation
-    function setupAnimations() {
-        const animatedElements = document.querySelectorAll(
-            '.skills-card, .project-card, .about-contents, .contact-content'
-        );
-        
-        animatedElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
+    // ---------- Mobile menu ----------
+    function closeMenu() {
+        navbar.classList.remove("menu-open");
+        navToggle?.setAttribute("aria-expanded", "false");
+        navToggle?.setAttribute("aria-label", "Open menu");
     }
 
-    // ========================================
-    // Initialize Everything
-    // ========================================
-    
-    function init() {
-        setupAnimations();
-        setActiveNavLink();
-        
-        console.log('Portfolio initialized successfully!');
-    }
+    navToggle?.addEventListener("click", () => {
+        const open = navbar.classList.toggle("menu-open");
+        navToggle.setAttribute("aria-expanded", String(open));
+        navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    });
 
-    // Run initialization when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+    navLinks?.addEventListener("click", (e) => {
+        if (e.target.closest("a")) closeMenu();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+    });
+
+    // ---------- Navbar shadow on scroll ----------
+    function onScroll() {
+        navbar.classList.toggle("scrolled", window.scrollY > 10);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // ---------- Active nav link ----------
+    const links = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll("main section[id]");
+
+    const sectionObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const id = entry.target.id;
+                links.forEach((l) => l.classList.toggle("active", l.getAttribute("href") === "#" + id));
+            });
+        },
+        { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((s) => sectionObserver.observe(s));
+
+    // ---------- Reveal on scroll ----------
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealTargets = document.querySelectorAll(
+        ".section-title, .about-body, .project-card, .project-row, .skill-card, .contact-lead"
+    );
+
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+        revealTargets.forEach((el) => el.classList.add("is-visible"));
     } else {
-        init();
+        const revealObserver = new IntersectionObserver(
+            (entries, obs) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        obs.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+        );
+        revealTargets.forEach((el) => {
+            el.classList.add("reveal");
+            revealObserver.observe(el);
+        });
     }
-
-    // ========================================
-    // Utility: Debounce Function
-    // ========================================
-    
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // Throttle scroll events for better performance
-    const throttledScroll = debounce(handleNavbarScroll, 10);
-    window.addEventListener('scroll', throttledScroll);
-
 })();
