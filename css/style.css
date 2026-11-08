@@ -542,6 +542,126 @@ svg {
     padding-top: 2px;
 }
 
+/* ---------- Experience ---------- */
+
+.xp-list {
+    list-style: none;
+    position: relative;
+}
+
+.xp-item {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 40px;
+    position: relative;
+}
+
+/* Timeline rail */
+.xp-body {
+    position: relative;
+    padding: 0 0 44px 32px;
+    border-left: 1px solid var(--border);
+}
+
+.xp-item:last-child .xp-body {
+    padding-bottom: 0;
+}
+
+.xp-item:last-child .xp-body {
+    border-left-color: transparent;
+    background: linear-gradient(var(--border), var(--border)) left top / 1px 40px no-repeat;
+}
+
+/* Timeline node */
+.xp-body::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--bg-alt), 0 0 0 5px var(--accent-soft);
+}
+
+.xp-teaching .xp-body::before {
+    background: var(--bg-alt);
+    border: 2px solid var(--status-progress);
+}
+
+.xp-when {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: right;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding-top: 2px;
+}
+
+.xp-loc {
+    color: var(--text-faint);
+    font-size: 0.75rem;
+}
+
+.xp-track {
+    font-size: 0.72rem;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+.xp-teaching .xp-track {
+    color: var(--status-progress);
+}
+
+.xp-role {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+}
+
+.xp-org {
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+.xp-points {
+    list-style: none;
+    margin-bottom: 16px;
+    max-width: 680px;
+}
+
+.xp-points li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 6px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.xp-points li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+.xp-teaching .xp-points li::before {
+    color: var(--status-progress);
+}
+
+.xp-teaching .tag {
+    background: color-mix(in srgb, var(--status-progress) 12%, transparent);
+    color: var(--status-progress);
+}
+
+.xp-list .tags {
+    margin-bottom: 0;
+}
+
 /* ---------- Projects ---------- */
 
 .filters {
@@ -897,6 +1017,32 @@ svg {
 
     .row-tags {
         display: none;
+    }
+
+    .xp-item {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .xp-when {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px 12px;
+        text-align: left;
+        padding: 0 0 8px 32px;
+        border-left: 1px solid var(--border);
+    }
+
+    .xp-body {
+        padding-bottom: 40px;
+    }
+
+    .xp-item:last-child .xp-body {
+        padding-bottom: 0;
+    }
+
+    .xp-body::before {
+        top: -26px;
     }
 }
 

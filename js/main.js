@@ -75,7 +75,7 @@
     // ---------- Reveal on scroll ----------
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealTargets = document.querySelectorAll(
-        ".section-title, .about-body, .project-card, .project-row, .skill-card, .contact-lead"
+        ".section-title, .about-body, .xp-item, .project-card, .project-row, .skill-card, .contact-lead"
     );
 
     if (reduceMotion || !("IntersectionObserver" in window)) {

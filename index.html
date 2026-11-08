@@ -30,7 +30,7 @@
     />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css?v=2" />
+    <link rel="stylesheet" href="css/style.css?v=3" />
 
     <!-- Apply saved theme before paint to avoid a flash -->
     <script>
@@ -59,6 +59,7 @@
 
         <ul class="nav-links" id="navLinks">
           <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#experience" class="nav-link">Experience</a></li>
           <li><a href="#projects" class="nav-link">Projects</a></li>
           <li><a href="#skills" class="nav-link">Skills</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -126,19 +127,33 @@ emulation/  kernel-drivers/  graphics/  security/  game-dev/
               penetration testing and malware reverse engineering.
             </p>
             <ul class="facts">
-              <li><span class="mono">Education</span>Portland State University · Computer Science &amp; Russian</li>
+              <li><span class="mono">Education</span>Portland State University · Computer Science &amp; Russian · 2021–2025</li>
               <li><span class="mono">Focus</span>Systems programming, emulation, security</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <!-- Projects -->
-      <section class="section section-alt" id="projects">
+      <!-- Experience -->
+      <section class="section section-alt" id="experience">
         <div class="container">
           <div class="section-head">
             <div>
-              <p class="section-label mono">02 · Projects</p>
+              <p class="section-label mono">02 · Experience</p>
+              <h2 class="section-title">Where I've worked</h2>
+            </div>
+            <div class="filters" role="group" aria-label="Filter experience" id="experienceFilters"></div>
+          </div>
+          <ol class="xp-list" id="experienceList"></ol>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="section" id="projects">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <p class="section-label mono">03 · Projects</p>
               <h2 class="section-title">Selected work</h2>
             </div>
             <div class="filters" role="group" aria-label="Filter projects" id="projectFilters"></div>
@@ -153,18 +168,18 @@ emulation/  kernel-drivers/  graphics/  security/  game-dev/
       </section>
 
       <!-- Skills -->
-      <section class="section" id="skills">
+      <section class="section section-alt" id="skills">
         <div class="container">
-          <p class="section-label mono">03 · Skills</p>
+          <p class="section-label mono">04 · Skills</p>
           <h2 class="section-title">Toolbox</h2>
           <div class="skills-grid" id="skillsGrid"></div>
         </div>
       </section>
 
       <!-- Contact -->
-      <section class="section section-alt" id="contact">
+      <section class="section" id="contact">
         <div class="container contact">
-          <p class="section-label mono">04 · Contact</p>
+          <p class="section-label mono">05 · Contact</p>
           <h2 class="section-title">Let's talk.</h2>
           <p class="contact-lead">
             I'm open to software engineering roles, especially in systems, embedded or
@@ -190,6 +205,7 @@ emulation/  kernel-drivers/  graphics/  security/  game-dev/
       </div>
     </footer>
 
+    <script src="js/experience.js?v=2"></script>
     <script src="js/skills.js?v=2"></script>
     <script src="js/projects.js?v=2"></script>
     <script src="js/main.js?v=2"></script>
