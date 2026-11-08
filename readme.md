@@ -8,7 +8,7 @@ It's a static site (plain HTML, CSS and JavaScript, no build step) served by Git
 
 | What | Where |
 | --- | --- |
-| Projects | `js/projects.js`: add an object to `projectsArray` (`featured: true` gives it a large card) |
+| Projects | `js/projects.js`: add an object to `projectsArray` |
 | Skills | `js/skills.js`: edit `skillsArray` |
 | About, contact and hero text | `index.html` |
 | Colors and theme | CSS variables at the top of `css/style.css` |
